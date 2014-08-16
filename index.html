@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" media="screen" type="text/css" href="css/datepicker.css" />
+	<script src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/datepicker.js"></script>
+	<style>
+		.display-block {
+			display:block;
+		}
+		.display-none {
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<div><span><input id="my-litte-date" type="text" readonly ></span></div>
+	<p>
+	<span id="input-date" class="display-block"></span>
+		
+<div>
+      <ul id="dateBtn">
+        <li id="btnDR" data-datetype="日" class="button-stateb button-date inputbac">日报表</li>
+        <li id="btnMR" data-datetype="月" class="button-stateb button-date inputbac">月报表</li>
+        <li id="btnSR" data-datetype="季" class="button-stateb button-date inputbac">季报表</li>
+        <li id="btnYR" data-datetype="年" class="button-stateb button-date inputbac">年报表</li>
+        <li id="btnCR" data-datetype="自" class="button-stateb button-date inputbac">自定义</li>
+        <li id="dvMultiDatec">
+          <input type="text" name="tbBdate" id="tbBdate" readonly="readonly" />
+          <span style="width:20px;margin:0 5px;line-height:22px">至</span>
+          <input type="text" name="tbEdate" id="tbEdate" readonly="readonly"/>
+        </li>
+        <li id="dvMultiConf">
+        <input type="button" id="dateOkBtn"  value='确定' class="button-state" />
+        <input type="button" id="dateCanBtn"  value='取消' class="button-state" />
+      </li>
+      </ul>
+      <dl id="cldView">
+        <dd id="forbtnDR" class="active"></dd>
+        <dd id="forbtnMR"></dd>
+        <dd id="forbtnSR"></dd>
+        <dd id="forbtnYR"></dd>
+        <dd id="forbtnCR"></dd>
+      </dl>
+    </div>
+
+    <script>
+    	$(function() {
+    		window.date_type = '日';    //月，季，年，自定义
+    		
+    		//设置日期插件参数
+    		var options = {
+    			flat: true,
+				date: '2008-07-31',
+				current: '2008-07-31',
+				view: 'years',
+				calendars: 1,
+				starts: 1,
+				onChange: function(data) {
+					$('#my-litte-date').val(data);
+					
+				}
+    		};
+
+    		//调用日期插件
+    		$('#input-date').DatePicker(options);
+    		
+    		//确定获取日期类型
+    		$('#dateBtn').click(function(event) {
+    			var e= event || window.event,
+    				target = e.target || e.srcElement;
+				if($(target).attr('data-datetype') !== undefined) {
+    				window.date_type = $(target).attr('data-datetype');
+    				console.log(window.date_type);
+    			}
+    		});
+
+    		var dd = $('.datepickerYears span').click(function() {
+    			console.log($(this).html());
+    			$('#input-date').DatePickerClear();
+    		});
+    		
+    		
+    	});
+    </script>
+</body>
+</html>
